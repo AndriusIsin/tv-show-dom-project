@@ -9,8 +9,28 @@
   </head>
 
   <body>
-    <div id="root">
-    </div>
+    <section id="navigation">
+        <label class="label" for="choose">Choose an episode:</label>
+        <select name="choose" id="choose">
+          <option value="select">Select episode...</option>
+        </select>
+          <input id="search-input" type="text" name="search" placeholder="Search.." />
+          <p class="displaying-episodes">
+            Displaying <span class="episodes-shown-number">73</span>/73 episodes
+          </p>
+         
+
+    </section>
+    <section id="root">
+
+    </section>
+    <footer>
+      <p>
+        Developed by Andrius Isin
+        | Data from
+        <a href="https://www.tvmaze.com/" target="_blank"> © TVmaze.com</a>
+      </p>
+    </footer>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
