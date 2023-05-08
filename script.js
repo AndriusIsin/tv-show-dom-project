@@ -1,13 +1,12 @@
-//You can edit ALL of the code here
-let selectElement = document.getElementById("choose");
-let searchElement = document.getElementById("search-input");
-let numberOfEpisodes = document.getElementById("episodes-number");
-let rootElem = document.getElementById("root");
+const selectElement = document.getElementById("choose");
+const searchElement = document.getElementById("search-input");
+const numberOfEpisodes = document.getElementById("episodes-number");
+const rootElem = document.getElementById("root");
 const allEpisodes = getAllEpisodes();
+
 function setup() {
   makePageForEpisodes(allEpisodes);
   addOptions();
-  numberOfEpisodes.innerText = allEpisodes.length;
   searchEpisodes();
   chooseAnEpisode();
 }
@@ -17,13 +16,13 @@ function makePageForEpisodes(episodeList) {
   numberOfEpisodes.innerText = episodeList.length;
 }
 function addEpisode(episode) {
-  let episodeContainer = document.createElement("div");
+  const episodeContainer = document.createElement("div");
   episodeContainer.classList.add("episode-container");
-  let title = document.createElement("h3");
+  const title = document.createElement("h3");
   title.classList.add("episode-title");
-  let imgEpisode = document.createElement("img");
+  const imgEpisode = document.createElement("img");
   imgEpisode.classList.add("episode-image");
-  let summaryText = document.createElement("p");
+  const summaryText = document.createElement("p");
   summaryText.classList.add("episode-summary");
   title.innerHTML = `${episode.name} - S${episode.season
     .toString()
@@ -53,7 +52,7 @@ function searchEpisodes() {
 // level 300
 function addOptions() {
   allEpisodes.forEach((episode) => {
-    let optionElement = document.createElement("option");
+    const optionElement = document.createElement("option");
     optionElement.innerHTML = `S${episode.season
       .toString()
       .padStart(2, "0")}E${episode.number.toString().padStart(2, "0")} - ${
