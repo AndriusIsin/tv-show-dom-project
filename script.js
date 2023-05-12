@@ -37,7 +37,7 @@ function addEpisode(episode) {
 // level 200
 function searchEpisodes() {
   searchElement.addEventListener("input", (event) => {
-    const inputValue = event.target.value.toLowerCase();
+    const inputValue = event.target.value;
     rootElem.textContent = "";
 
     const filteredEpisodes = allEpisodes.filter((episode) => {
