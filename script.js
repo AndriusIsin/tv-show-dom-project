@@ -69,6 +69,18 @@ function chooseAnEpisode() {
       inputValue.includes(episode.name)
     );
     makePageForEpisodes(filteredEpisodes);
+    buttonBackToAllEpisodes();
+  });
+}
+function buttonBackToAllEpisodes() {
+  const backButton = document.createElement("button");
+  backButton.classList.add("back-button");
+  backButton.innerText = "Show all episodes";
+  rootElem.appendChild(backButton);
+  backButton.addEventListener("click", (event) => {
+    rootElem.textContent = "";
+    makePageForEpisodes(allEpisodes);
+    backButton.remove();
   });
 }
 window.onload = setup;

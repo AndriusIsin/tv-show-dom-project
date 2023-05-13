@@ -62,6 +62,17 @@ font-size: 1.5rem;
   text-align: justify;
   margin: 1rem;
 }
+h3:hover  {
+  background-color: red;
+}
+
+.back-button{
+  font-size: 2rem;
+  background-color: #AA96DA;
+  height: 3rem;
+  border-radius: 5rem;
+  background-color: aliceblue;
+}
 footer{
   margin-top: 5rem;
   text-align: center;
