@@ -5,10 +5,15 @@ const rootElem = document.getElementById("root");
 const allEpisodes = getAllEpisodes();
 
 function setup() {
-  makePageForEpisodes(allEpisodes);
-  addOptions();
-  searchEpisodes();
-  chooseAnEpisode();
+  fetch("https://api.tvmaze.com/shows/82/episodes")
+    .then((response) => response.json())
+    .then((data) => {
+      makePageForEpisodes(data);
+      addOptions(data);
+      searchEpisodes(data);
+      chooseAnEpisode(data);
+    })
+    .catch((error) => console.log(error));
 }
 // level 100
 function makePageForEpisodes(episodeList) {
@@ -35,12 +40,12 @@ function addEpisode(episode) {
   rootElem.append(episodeContainer);
 }
 // level 200
-function searchEpisodes() {
+function searchEpisodes(episodes) {
   searchElement.addEventListener("input", (event) => {
     const inputValue = event.target.value;
     rootElem.textContent = "";
 
-    const filteredEpisodes = allEpisodes.filter((episode) => {
+    const filteredEpisodes = episodes.filter((episode) => {
       return (
         episode.summary.toLowerCase().includes(inputValue.toLowerCase()) ||
         episode.name.toLowerCase().includes(inputValue.toLowerCase())
@@ -50,8 +55,8 @@ function searchEpisodes() {
   });
 }
 // level 300
-function addOptions() {
-  allEpisodes.forEach((episode) => {
+function addOptions(episodes) {
+  episodes.forEach((episode) => {
     const optionElement = document.createElement("option");
     optionElement.innerHTML = `S${episode.season
       .toString()
@@ -61,25 +66,25 @@ function addOptions() {
     selectElement.appendChild(optionElement);
   });
 }
-function chooseAnEpisode() {
+function chooseAnEpisode(episodes) {
   selectElement.addEventListener("change", (event) => {
     const inputValue = event.target.value;
     rootElem.textContent = "";
-    const filteredEpisodes = allEpisodes.filter((episode) =>
+    const filteredEpisodes = episodes.filter((episode) =>
       inputValue.includes(episode.name)
     );
     makePageForEpisodes(filteredEpisodes);
-    buttonBackToAllEpisodes();
+    buttonBackToAllEpisodes(allEpisodes);
   });
 }
-function buttonBackToAllEpisodes() {
+function buttonBackToAllEpisodes(episodes) {
   const backButton = document.createElement("button");
   backButton.classList.add("back-button");
   backButton.innerText = "Show all episodes";
   rootElem.appendChild(backButton);
   backButton.addEventListener("click", (event) => {
     rootElem.textContent = "";
-    makePageForEpisodes(allEpisodes);
+    makePageForEpisodes(episodes);
     backButton.remove();
   });
 }
