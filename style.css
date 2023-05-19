@@ -17,18 +17,22 @@ body{
 
 #choose { 
 margin-left: 1rem;
-font-size: 1.5rem;
+font-size: 1rem;
+}
+#choose-show{
+  margin-left: 1rem;
+  font-size: 1rem;
 }
 .label{
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 #search-input {
   margin-right: 1rem;
- font-size: 1.5rem;
- margin-left: 5rem;
+ font-size: 1rem;
+ margin-left: 6rem;
 }
 .displaying-episodes{
-  font-size: 1.5rem;
+  font-size: 1rem;
 
 }
 #root {

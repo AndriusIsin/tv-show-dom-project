@@ -11,6 +11,9 @@
   <body>
     <section id="navigation">
         <label class="label" for="choose">Choose an episode:</label>
+        <select name="choose" id="choose-show">
+          <option value="select">Select show...</option>
+        </select>
         <select name="choose" id="choose">
           <option value="select">Select episode...</option>
         </select>
@@ -34,7 +37,7 @@
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
-
+    <script src="shows.js"></script>
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
   </body>

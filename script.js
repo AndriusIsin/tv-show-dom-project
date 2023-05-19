@@ -1,8 +1,10 @@
 const selectElement = document.getElementById("choose");
+const selectElementShow = document.getElementById("choose-show");
 const searchElement = document.getElementById("search-input");
 const numberOfEpisodes = document.getElementById("episodes-number");
 const rootElem = document.getElementById("root");
 const allEpisodes = getAllEpisodes();
+const shows = getAllShows();
 
 function setup() {
   fetch("https://api.tvmaze.com/shows/82/episodes")
@@ -14,6 +16,7 @@ function setup() {
       chooseAnEpisode(data);
     })
     .catch((error) => console.log(error));
+  chooseShow();
 }
 // level 100
 function makePageForEpisodes(episodeList) {
@@ -56,6 +59,7 @@ function searchEpisodes(episodes) {
 }
 // level 300
 function addOptions(episodes) {
+  selectElement.innerHTML = "";
   episodes.forEach((episode) => {
     const optionElement = document.createElement("option");
     optionElement.innerHTML = `S${episode.season
@@ -66,6 +70,16 @@ function addOptions(episodes) {
     selectElement.appendChild(optionElement);
   });
 }
+function addOptionsShow() {
+  let showTitles = shows.map((show) => show.name).sort();
+  showTitles.forEach((show) => {
+    const optionElement = document.createElement("option");
+    optionElement.innerHTML = show;
+    selectElementShow.appendChild(optionElement);
+  });
+}
+addOptionsShow();
+
 function chooseAnEpisode(episodes) {
   selectElement.addEventListener("change", (event) => {
     const inputValue = event.target.value;
@@ -75,6 +89,25 @@ function chooseAnEpisode(episodes) {
     );
     makePageForEpisodes(filteredEpisodes);
     buttonBackToAllEpisodes(allEpisodes);
+  });
+}
+function chooseShow() {
+  selectElementShow.addEventListener("change", (event) => {
+    const inputValue = event.target.value;
+
+    rootElem.textContent = "";
+
+    let filteredShow = shows.filter((show) => show.name === inputValue);
+
+    fetch(`https://api.tvmaze.com/shows/${filteredShow[0].id}/episodes`)
+      .then((response) => response.json())
+      .then((data) => {
+        makePageForEpisodes(data);
+        addOptions(data);
+        searchEpisodes(data);
+        chooseAnEpisode(data);
+      })
+      .catch((error) => console.log(error));
   });
 }
 function buttonBackToAllEpisodes(episodes) {
@@ -88,4 +121,5 @@ function buttonBackToAllEpisodes(episodes) {
     backButton.remove();
   });
 }
+
 window.onload = setup;
