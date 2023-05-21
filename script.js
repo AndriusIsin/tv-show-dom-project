@@ -7,15 +7,8 @@ const allEpisodes = getAllEpisodes();
 const shows = getAllShows();
 
 function setup() {
-  fetch("https://api.tvmaze.com/shows/82/episodes")
-    .then((response) => response.json())
-    .then((data) => {
-      makePageForEpisodes(data);
-      addOptions(data);
-      searchEpisodes(data);
-      chooseAnEpisode(data);
-    })
-    .catch((error) => console.log(error));
+  fetchEpisodes();
+  addOptionsShow();
   chooseShow();
 }
 // level 100
@@ -70,6 +63,31 @@ function addOptions(episodes) {
     selectElement.appendChild(optionElement);
   });
 }
+function buttonBackToAllEpisodes(episodes) {
+  const backButton = document.createElement("button");
+  backButton.classList.add("back-button");
+  backButton.innerText = "Show all episodes";
+  rootElem.appendChild(backButton);
+  backButton.addEventListener("click", (event) => {
+    rootElem.textContent = "";
+    makePageForEpisodes(episodes);
+    backButton.remove();
+  });
+}
+//level 350
+
+function fetchEpisodes() {
+  fetch("https://api.tvmaze.com/shows/82/episodes")
+    .then((response) => response.json())
+    .then((data) => {
+      makePageForEpisodes(data);
+      addOptions(data);
+      searchEpisodes(data);
+      chooseAnEpisode(data);
+    })
+    .catch((error) => console.log(error));
+}
+//Level 400
 function addOptionsShow() {
   let showTitles = shows.map((show) => show.name).sort();
   showTitles.forEach((show) => {
@@ -108,17 +126,6 @@ function chooseShow() {
         chooseAnEpisode(data);
       })
       .catch((error) => console.log(error));
-  });
-}
-function buttonBackToAllEpisodes(episodes) {
-  const backButton = document.createElement("button");
-  backButton.classList.add("back-button");
-  backButton.innerText = "Show all episodes";
-  rootElem.appendChild(backButton);
-  backButton.addEventListener("click", (event) => {
-    rootElem.textContent = "";
-    makePageForEpisodes(episodes);
-    backButton.remove();
   });
 }
 
