@@ -96,7 +96,6 @@ function addOptionsShow() {
     selectElementShow.appendChild(optionElement);
   });
 }
-addOptionsShow();
 
 function chooseAnEpisode(episodes) {
   selectElement.addEventListener("change", (event) => {

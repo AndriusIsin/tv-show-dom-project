@@ -13,6 +13,8 @@ body{
   flex-direction: row;
   align-items: center;
   justify-content: left;
+  margin-left: -0.5rem;
+  margin-right: 0.5rem;
 }
 
 #choose { 
@@ -46,18 +48,20 @@ font-size: 1rem;
 .episode-container{
   display: flex;
   flex-direction: column;
-  width: auto;
+  width: 28rem;
   border: 0.1rem black solid;
   border-radius: 1rem;
   align-items: center;
   background-color: #C5FAD5;
 }
 .episode-title{
-  
+  width: 100%;
   font-weight: 800;
   margin-bottom: 1rem;
   margin-top: 0;
-  padding: 1rem;
+  padding: 1rem 0;
+  text-align: center;
+  /* padding: 1rem; */
   border: 0.1rem black solid;
   border-radius: 1rem;
   background-color: #FFFFD2;
