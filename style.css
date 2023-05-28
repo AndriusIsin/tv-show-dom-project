@@ -13,8 +13,7 @@ body{
   flex-direction: row;
   align-items: center;
   justify-content: left;
-  margin-left: -0.5rem;
-  margin-right: 0.5rem;
+  margin-left: -0.6rem;
 }
 
 #choose { 
@@ -22,10 +21,11 @@ margin-left: 1rem;
 font-size: 1rem;
 }
 #choose-show{
-  margin-left: 1rem;
+  margin-left: 0rem;
   font-size: 1rem;
 }
 .label{
+  margin-left: 1rem;
   font-size: 1rem;
 }
 #search-input {
