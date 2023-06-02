@@ -6,27 +6,35 @@
     <title>TV Show Project | Andrius Isin (AndriusIsin)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@1,500&family=Poppins:ital,wght@1,600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@1,500&family=Poppins:ital,wght@1,600&display=swap"
+  rel="stylesheet">
   </head>
-
-  <body>
+  <header >
     <section id="navigation">
-        <label class="label" for="choose">Choose an episode:</label>
-        <select name="choose" id="choose-show">
-          <option value="select">Select show...</option>
-        </select>
-        <select name="choose" id="choose">
-          <option value="select">Select episode...</option>
-        </select>
-          <input id="search-input" type="text" name="search" placeholder="Search.." />
-          <p class="displaying-episodes">
-            Displaying <span id="episodes-number"></span>/73 episodes
-          </p>
-         
-
+       <select name="choose" id="choose-show">
+        <option value="select">Select show...</option>
+       </select>
+      <select name="choose" id="choose">
+        <option value="select">Select episode...</option>
+      </select>
+      <p id="displaying-episodes"></p>
+      <input id="search-input" type="text" name="search" placeholder="Search.." />
+      
     </section>
-    <section id="root">
-
-    </section>
+    
+  </header>
+  <body>
+    <section id="root"></section>
+    <section id="root-shows"></section>
     <footer>
       <p>
         Developed by Andrius Isin
@@ -42,3 +50,4 @@
     <script src="script.js"></script>
   </body>
 </html>
+ 

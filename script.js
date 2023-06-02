@@ -1,20 +1,36 @@
 const selectElement = document.getElementById("choose");
 const selectElementShow = document.getElementById("choose-show");
 const searchElement = document.getElementById("search-input");
-const numberOfEpisodes = document.getElementById("episodes-number");
+const numberOfEpisodes = document.getElementById("displaying-episodes");
 const rootElem = document.getElementById("root");
+const rootElemShow = document.getElementById("root-shows");
+
 const allEpisodes = getAllEpisodes();
 const shows = getAllShows();
+const oneShow = getOneShow();
+const starUrl =
+  "https://www.citypng.com/public/uploads/preview/hd-orange-star-transparent-background-116590439195j8drukpqu.png";
 
 function setup() {
-  fetchEpisodes();
+  searchShows();
   addOptionsShow();
-  chooseShow();
+  chooseShow(selectElementShow, "change");
+  numberOfEpisodes.innerText = `found ${shows.length} shows`;
+  showAllShows(shows);
+  ahref();
+
+  // fetchEpisodes();
 }
 // level 100
 function makePageForEpisodes(episodeList) {
+  selectElementShow.style.display = "inline";
+  selectElement.style.display = "inline";
+  rootElemShow.textContent = "";
   episodeList.forEach((episode) => addEpisode(episode));
-  numberOfEpisodes.innerText = episodeList.length;
+  numberOfEpisodes.innerText = `found ${episodeList.length} episodes`;
+  addOptions(data);
+  searchEpisodes(data);
+  chooseAnEpisode(data);
 }
 function addEpisode(episode) {
   const episodeContainer = document.createElement("div");
@@ -48,6 +64,7 @@ function searchEpisodes(episodes) {
       );
     });
     makePageForEpisodes(filteredEpisodes);
+    numberOfEpisodes.innerText = `found ${filteredEpisodes.length} episodes`;
   });
 }
 // level 300
@@ -76,14 +93,11 @@ function buttonBackToAllEpisodes(episodes) {
 }
 //level 350
 
-function fetchEpisodes() {
-  fetch("https://api.tvmaze.com/shows/82/episodes")
+function fetchEpisodes(episodeNumber) {
+  fetch(`https://api.tvmaze.com/shows/${episodeNumber}/episodes`)
     .then((response) => response.json())
     .then((data) => {
       makePageForEpisodes(data);
-      addOptions(data);
-      searchEpisodes(data);
-      chooseAnEpisode(data);
     })
     .catch((error) => console.log(error));
 }
@@ -105,27 +119,88 @@ function chooseAnEpisode(episodes) {
       inputValue.includes(episode.name)
     );
     makePageForEpisodes(filteredEpisodes);
-    buttonBackToAllEpisodes(allEpisodes);
+    buttonBackToAllEpisodes(episodes);
   });
 }
-function chooseShow() {
-  selectElementShow.addEventListener("change", (event) => {
+function chooseShow(classOrId, eventListener) {
+  classOrId.addEventListener(eventListener, (event) => {
     const inputValue = event.target.value;
 
     rootElem.textContent = "";
-
+    rootElemShow.textContent = "";
     let filteredShow = shows.filter((show) => show.name === inputValue);
 
     fetch(`https://api.tvmaze.com/shows/${filteredShow[0].id}/episodes`)
       .then((response) => response.json())
       .then((data) => {
         makePageForEpisodes(data);
-        addOptions(data);
-        searchEpisodes(data);
-        chooseAnEpisode(data);
       })
       .catch((error) => console.log(error));
   });
 }
 
+//Level 500
+function showAllShows(shows) {
+  selectElementShow.style.display = "inline";
+  selectElement.style.display = "none";
+  shows.forEach((show) => {
+    const showContainer = document.createElement("div");
+    showContainer.classList = "main-show-container";
+    const titleRatingContainer = document.createElement("div");
+    titleRatingContainer.classList = "title-rating-container";
+    const showTitle = document.createElement("h1");
+    showTitle.classList = "show-title";
+    showTitle.innerText = show.name;
+    const ratingNumber = document.createElement("h5");
+    ratingNumber.classList = "rating-number";
+    ratingNumber.innerText = `⭐ ${show.rating.average}`;
+    titleRatingContainer.appendChild(showTitle);
+    titleRatingContainer.appendChild(ratingNumber);
+
+    const aboutShow = document.createElement("div");
+    aboutShow.classList = "about-show";
+    aboutShow.innerHTML = `
+   <h6 class="about-show-details">Genres: ${show.genres}</h6>
+   <h6 class="about-show-details">Status: ${show.status}</h6>
+   <h6 class="about-show-details">Runtime: ${show.runtime}</h6>`;
+
+    const aboutShowContainer = document.createElement("div");
+    aboutShowContainer.classList = "about-show-container";
+    const image = document.createElement("img");
+    image.classList = "show-image";
+    image.src = show.image.medium;
+    const about = document.createElement("p");
+    about.innerHTML = `${show.summary}`;
+
+    aboutShowContainer.appendChild(image);
+    aboutShowContainer.appendChild(about);
+    aboutShowContainer.appendChild(aboutShow);
+    showContainer.appendChild(titleRatingContainer);
+    showContainer.appendChild(aboutShowContainer);
+    rootElemShow.appendChild(showContainer);
+    image.addEventListener("click", function () {
+      fetchEpisodes(show.id);
+    });
+    showTitle.addEventListener("click", function () {
+      fetchEpisodes(show.id);
+    });
+  });
+}
+function searchShows() {
+  searchElement.addEventListener("input", (event) => {
+    const inputValue = event.target.value;
+    rootElemShow.textContent = "";
+    const filteredShows = shows.filter((show) => {
+      return (
+        show.summary.toLowerCase().includes(inputValue.toLowerCase()) ||
+        show.name.toLowerCase().includes(inputValue.toLowerCase())
+      );
+    });
+    showAllShows(filteredShows);
+    numberOfEpisodes.innerText = `found ${filteredShows.length} shows`;
+  });
+}
+const showTitles = document.querySelectorAll(".show-title");
+showTitles.forEach((title) => console.log(title.value));
+console.log(showTitles);
 window.onload = setup;
