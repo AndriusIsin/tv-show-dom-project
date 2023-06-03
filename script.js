@@ -17,7 +17,6 @@ function setup() {
   chooseShow(selectElementShow, "change");
   numberOfEpisodes.innerText = `found ${shows.length} shows`;
   showAllShows(shows);
-  ahref();
 
   // fetchEpisodes();
 }
@@ -28,9 +27,6 @@ function makePageForEpisodes(episodeList) {
   rootElemShow.textContent = "";
   episodeList.forEach((episode) => addEpisode(episode));
   numberOfEpisodes.innerText = `found ${episodeList.length} episodes`;
-  addOptions(data);
-  searchEpisodes(data);
-  chooseAnEpisode(data);
 }
 function addEpisode(episode) {
   const episodeContainer = document.createElement("div");
@@ -98,6 +94,9 @@ function fetchEpisodes(episodeNumber) {
     .then((response) => response.json())
     .then((data) => {
       makePageForEpisodes(data);
+      addOptions(data);
+      searchEpisodes(data);
+      chooseAnEpisode(data);
     })
     .catch((error) => console.log(error));
 }
@@ -134,6 +133,9 @@ function chooseShow(classOrId, eventListener) {
       .then((response) => response.json())
       .then((data) => {
         makePageForEpisodes(data);
+        addOptions(data);
+        searchEpisodes(data);
+        chooseAnEpisode(data);
       })
       .catch((error) => console.log(error));
   });
