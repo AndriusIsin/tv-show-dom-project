@@ -41,7 +41,9 @@ function addEpisode(episode) {
     .toString()
     .padStart(2, "0")}E${episode.number.toString().padStart(2, "0")}
 `;
-  imgEpisode.src = episode.image.medium;
+  if (episode.image !== null) {
+    imgEpisode.src = episode.image.medium;
+  }
   imgEpisode.alt = episode.name;
   summaryText.innerHTML = episode.summary;
   episodeContainer.append(title, imgEpisode, summaryText);
@@ -170,7 +172,9 @@ function showAllShows(shows) {
     aboutShowContainer.classList = "about-show-container";
     const image = document.createElement("img");
     image.classList = "show-image";
-    image.src = show.image.medium;
+    if (show.image !== null) {
+      image.src = show.image.medium;
+    }
     const about = document.createElement("p");
     about.innerHTML = `${show.summary}`;
 
