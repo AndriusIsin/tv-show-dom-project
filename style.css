@@ -21,11 +21,13 @@ body{
 margin-left: 1rem;
 font-size: 1rem;
 background-color: #e0e0e0;
+width: 25rem;
 }
 #choose-show{
   margin-left: 0rem;
   font-size: 1rem;
   background-color: #e0e0e0;
+  width: 25rem;
 }
 .label{
   margin-left: 1rem;
